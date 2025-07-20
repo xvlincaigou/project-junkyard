@@ -1,0 +1,211 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* 防止出现滚动条 */
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保证图片覆盖整个容器 */
+}
+
+.lottery-buttons {
+    position: absolute;
+    bottom: 80px; /* 将按钮稍微往上移动 */
+    left: 100px;
+    display: flex;
+    gap: 10px;
+}
+
+.prize-btn {
+    background: url('./static/button.webp') no-repeat center center;
+    background-size: contain;
+    border: none;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px; /* 将按钮字体稍微变大 */
+    cursor: pointer;
+    width: 180px; /* 根据需要调整宽度 */
+    height: 80px; /* 根据需要调整高度 */
+    color: #333; /* 调整文字颜色 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    font-family: 'Microsoft YaHei', sans-serif; /* 使用微软雅黑字体 */
+}
+
+.prize-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.prize-btn div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 确保在最前面 */
+}
+
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+video::-webkit-media-controls-enclosure{ 
+    display: none;
+}
+
+.result-display {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* 确保在最前面 */
+    text-align: center;
+    animation: fadeIn 1s;
+}
+
+.result-display #resultContent {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 3000; /* 提高文字和星星的层级 */
+}
+
+.splash-image {
+    height: 90vh; /* 将高度设置为视口高度 */
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* 设置图片层级 */
+}
+
+.result-text {
+    font-size: 120px; /* 调整字体大小 */
+    color: #666464; /* 字体颜色 */
+    animation: popIn 1s;
+    z-index: 4000; /* 提高文字的层级 */
+    font-family: 'HanyiWenhei', sans-serif; /* 使用自定义字体 */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+.stars-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 使星星靠右对齐 */
+    justify-content: center;
+    gap: 5px;
+    margin-right: 20px;
+    z-index: 4000; /* 提高星星的层级 */
+    position: absolute; /* 绝对定位 */
+    left: 10%; /* 将星星容器放置在飞溅图片的左侧 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.star {
+    width: 50px;
+    height: 50px;
+    background: url('./static/star.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0;
+    animation: starFadeIn 0.3s forwards;
+}
+
+@keyframes starFadeIn {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+}
+
+.cards-container {
+    display: none; /* 默认隐藏，只有在抽取三等奖时才显示 */
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* 减小卡片之间的间距 */
+    flex-wrap: nowrap; /* 不换行排列 */
+    width: 70vw; /* 占据页面70%的宽度 */
+    margin: 0 auto; /* 居中显示 */
+}
+
+.card {
+    flex: 1;
+    max-width: 9%; /* 确保十张卡片并排 */
+    height: 40vh; /* 卡片高度 */
+    background: url('./static/card.png') no-repeat center center;
+    background-size: contain;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 5vh; /* 调整字体大小 */
+    color: #ffffff; /* 字体颜色 */
+    z-index: 4000;
+    font-family: 'HanyiWenhei', sans-serif; /* 使用自定义字体 */
+}
+
+.card .number {
+    writing-mode: horizontal-tb;
+}
+
+.exit-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 18px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 5000; /* 确保在最前面 */
+}
